@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-const db = require("../db/db");
 const userService = require("../service/user.service");
 
 const { validationResult } = require("express-validator");
@@ -23,6 +22,9 @@ class UserController {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });
+      res.cookie("accessToken", userData.accessToken, {
+        maxAge: 1 * 60 * 60 * 1000,
+      });
       return res.json(userData);
     } catch (err) {
       next(err);
@@ -38,6 +40,10 @@ class UserController {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
       });
+      res.cookie("accessToken", userData.accessToken, {
+        maxAge: 1 * 60 * 60 * 1000,
+      });
+
       return res.json(userData);
     } catch (err) {
       next(err);
@@ -48,6 +54,7 @@ class UserController {
       const { refreshToken } = req.cookies;
       const token = await userService.logout(refreshToken);
       res.clearCookie("refreshToken");
+      res.clearCookie("accessToken");
 
       return res.json(token);
     } catch (err) {
@@ -62,6 +69,9 @@ class UserController {
       res.cookie("refreshToken", userData.refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         httpOnly: true,
+      });
+      res.cookie("accessToken", userData.accessToken, {
+        maxAge: 1 * 60 * 60 * 1000,
       });
       return res.json(userData);
     } catch (err) {

@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const userRouter = require("./routes/user.routes");
+const noteRouter = require("./routes/note.routes");
 const errorMiddleware = require("./middlewares/error.middleware");
 
 const PORT = process.env.PORT || 8000;
@@ -21,6 +22,7 @@ app.use(
 );
 
 app.use("/api", userRouter);
+app.use("/api", noteRouter);
 
 app.use(errorMiddleware);
 

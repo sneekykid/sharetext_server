@@ -9,6 +9,7 @@ create TABLE note(
     short_url VARCHAR(8),
     title VARCHAR(255),
     content TEXT,
+    views INTEGER,
     user_id INTEGER,
     FOREIGN KEY (user_id) REFERENCES person (id)
 );
