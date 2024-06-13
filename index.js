@@ -8,6 +8,7 @@ const userRouter = require("./routes/user.routes");
 const errorMiddleware = require("./middlewares/error.middleware");
 
 const PORT = process.env.PORT || 8000;
+const test_variable = "";
 
 const app = express();
 app.use(express.json());
